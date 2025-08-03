@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node dist/app.js",
     "dev": "nodemon src/app.ts",
-    "build": "tsc",
+    "build": "npx tsc",
     "lint": "eslint . --ext .ts",
     "test": "jest",
     "seed:templates": "ts-node src/scripts/seedTemplatesFromFiles.ts",
