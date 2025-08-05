@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node dist/app.js",
     "dev": "nodemon src/app.ts",
-    "build": "npx tsc",
+    "build": "npx tsc && npm run copy-md-files",
+    "copy-md-files": "find src -name '*.md' -exec sh -c 'mkdir -p dist/$(dirname \"${1#src/}\") && cp \"$1\" \"dist/${1#src/}\"' _ {} \\;",
     "lint": "eslint . --ext .ts",
     "test": "jest",
     "seed:templates": "ts-node src/scripts/seedTemplatesFromFiles.ts",
