@@ -1,19 +1,20 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { ChakraProvider, Box } from '@chakra-ui/react';
-import theme from './theme';
-import { Lists } from './pages/Lists';
-import { ListDetail } from './pages/ListDetail';
-import { Learn } from './pages/Learn';
-import { Quiz } from './pages/Quiz';
-import { TemplateLibrary } from './pages/TemplateLibrary';
-import { WordDetailPage } from './pages/WordDetail';
-import { Settings } from './pages/Settings';
-import { ImageDescription } from './pages/ImageDescription';
-import { GetNewWords } from './pages/GetNewWords';
-import { WordLearningSession } from './pages/WordLearningSession';
-import { ReadingPage } from './pages/ReadingPage';
-import { VoiceChat } from './pages/VoiceChat';
+import { Box, ChakraProvider } from '@chakra-ui/react';
+import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { Header } from './components/Header';
+import { GetNewWords } from './pages/GetNewWords';
+import { HealthCheck } from './pages/HealthCheck';
+import { ImageDescription } from './pages/ImageDescription';
+import { Learn } from './pages/Learn';
+import { ListDetail } from './pages/ListDetail';
+import { Lists } from './pages/Lists';
+import { Quiz } from './pages/Quiz';
+import { ReadingPage } from './pages/ReadingPage';
+import { Settings } from './pages/Settings';
+import { TemplateLibrary } from './pages/TemplateLibrary';
+import { VoiceChat } from './pages/VoiceChat';
+import { WordDetailPage } from './pages/WordDetail';
+import { WordLearningSession } from './pages/WordLearningSession';
+import theme from './theme';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Header />
           <Routes>
             <Route path="/" element={<Navigate to="/lists" replace />} />
+            <Route path="/health" element={<HealthCheck />} />
             <Route path="/lists" element={<Lists />} />
             <Route path="/lists/:id" element={<ListDetail />} />
             <Route path="/learn/:id" element={<Learn />} />
