@@ -24,5 +24,5 @@ RUN npm install -g serve
 # Expose port
 EXPOSE 3000
 
-# Start the production server
-CMD ["serve", "-s", "dist", "-l", "3000"]
+# Start the production server with SPA support and dynamic port
+CMD ["sh", "-c", "serve -s dist -l ${PORT:-3000} --single"]
