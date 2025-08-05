@@ -6,11 +6,23 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install all dependencies (including dev dependencies)
+# Install all dependencies (including dev dependencies for build)
 RUN npm ci
 
-# Expose port
-EXPOSE 5173
+# Copy source code
+COPY . .
 
-# Start the development server
-CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
+# Build the application
+RUN npm run build
+
+# Remove dev dependencies and install only production dependencies
+RUN npm prune --production
+
+# Install serve to serve static files
+RUN npm install -g serve
+
+# Expose port
+EXPOSE 3000
+
+# Start the production server
+CMD ["serve", "-s", "dist", "-l", "3000"]

@@ -381,18 +381,27 @@ ELEVENLABS_API_KEY=your_actual_elevenlabs_api_key_here  # Optional for audio fea
 ```
 
 3. **Start all services (MongoDB + Backend + Frontend):**
-```bash
-# Start development environment with hot reload
-docker-compose up --build
-```
+
+   **开发环境 (推荐):**
+   ```bash
+   # 使用开发环境Dockerfile (热重载)
+   ./scripts/docker-dev.sh
+   ```
+   
+   **生产环境测试:**
+   ```bash
+   # 使用生产环境Dockerfile
+   ./scripts/docker-prod.sh
+   ```
 
 4. **Access the application:**
-   - Frontend: http://localhost:5173 (Vite dev server with hot reload)
-   - Backend API: http://localhost:3000 (with hot reload)
+   - Frontend: http://localhost:5173 (开发环境) / http://localhost:80 (生产环境)
+   - Backend API: http://localhost:3000
    - MongoDB: localhost:27017 (username: admin, password: password)
 
 ### Docker Commands
 
+**开发环境:**
 ```bash
 # Start development environment with hot reload
 docker-compose up --build
@@ -415,6 +424,21 @@ docker-compose logs -f frontend
 
 # Rebuild specific service
 docker-compose build backend --no-cache
+```
+
+**生产环境:**
+```bash
+# Start production environment
+docker-compose -f docker-compose.prod.yml up --build
+
+# Run in background
+docker-compose -f docker-compose.prod.yml up -d
+
+# Stop all services
+docker-compose -f docker-compose.prod.yml down
+
+# View logs
+docker-compose -f docker-compose.prod.yml logs -f
 ```
 
 ### MongoDB Access

@@ -1,24 +1,24 @@
-import express from 'express';
 import cors from 'cors';
+import express from 'express';
 import helmet from 'helmet';
+import { configureOpenAIAgents } from './agents';
 import { environment } from './config/environment';
+import { connectDB } from './config/mongodb';
 import { errorHandler } from './middleware/errorHandler';
 import { openaiRateLimiter } from './middleware/rateLimiter';
-import { connectDB } from './config/mongodb';
-import { configureOpenAIAgents } from './agents';
 
 // Import routes
-import listRoutes from './api/lists/routes';
-import wordRoutes from './api/words/routes';
+import audioRoutes from './api/audio/routes';
+import imageDescriptionRoutes from './api/image-description/routes';
+import languageValidationRoutes from './api/language-validation/routes';
 import learnRoutes from './api/learn/routes';
+import listRoutes from './api/lists/routes';
+import preferencesRoutes from './api/preferences/routes';
 import quizRoutes from './api/quiz/routes';
 import templateRoutes from './api/templates/routes';
-import preferencesRoutes from './api/preferences/routes';
-import imageDescriptionRoutes from './api/image-description/routes';
 import vocabularyRoutes from './api/vocabulary/routes';
-import languageValidationRoutes from './api/language-validation/routes';
-import audioRoutes from './api/audio/routes';
 import voiceRoutes from './api/voice/routes';
+import wordRoutes from './api/words/routes';
 
 const app = express();
 
@@ -35,6 +35,11 @@ app.use('/api/vocabulary', openaiRateLimiter);
 app.use('/api/language-validation', openaiRateLimiter);
 app.use('/api/audio', openaiRateLimiter); // Audio routes use ElevenLabs API
 app.use('/api/voice', openaiRateLimiter); // Voice routes use OpenAI Realtime API
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
+});
 
 // Routes
 app.use('/api/lists', listRoutes);
